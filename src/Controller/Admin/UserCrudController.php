@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -14,9 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\SecurityBundle\Security;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -46,7 +45,8 @@ class UserCrudController extends AbstractCrudController
                 ->remove(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER)
                 ->remove(Crud::PAGE_INDEX, Action::BATCH_DELETE)
                 ->remove(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE)
-                ->setPermissions([
+                ->setPermissions(
+                    [
                     ]
                 );
         }
@@ -56,8 +56,8 @@ class UserCrudController extends AbstractCrudController
     }
 
     /**
-     * @param EntityManagerInterface $entityManager
      * @param object $entityInstance
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -92,7 +92,7 @@ class UserCrudController extends AbstractCrudController
         $entity = $this->getContext()?->getEntity()?->getInstance();
         $isDisabled = $entity instanceof User && in_array('ROLE_SUPER_ADMIN', $entity->getRoles());
 
-        if(!$isSuperAdmin){
+        if (!$isSuperAdmin) {
             return [
                 EmailField::new('email')->setDisabled(true), // SUPER_ADMIN can edit, others cannot
                 TextField::new('username')->setDisabled(true), // SUPER_ADMIN can edit
@@ -108,7 +108,7 @@ class UserCrudController extends AbstractCrudController
                     ->formatValue(function ($value, $entity) {
                         return implode(', ', $entity->getRoles()); // Convert array to string
                     })
-                    ->onlyOnIndex()
+                    ->onlyOnIndex(),
             ];
         } else {
             return [
@@ -124,7 +124,7 @@ class UserCrudController extends AbstractCrudController
                 ChoiceField::new('roles')
                     ->allowMultipleChoices()
                     ->setChoices($this->getAvailableRoles())
-                    ->setPermission('ROLE_SUPER_ADMIN') // ADMIN can promote only to EDITOR
+                    ->setPermission('ROLE_SUPER_ADMIN'), // ADMIN can promote only to EDITOR
             ];
         }
     }
@@ -140,7 +140,7 @@ class UserCrudController extends AbstractCrudController
                 'User' => 'ROLE_USER',
                 'Editor' => 'ROLE_EDITOR',
                 'Admin' => 'ROLE_ADMIN',
-                'Super Admin' => 'ROLE_SUPER_ADMIN'
+                'Super Admin' => 'ROLE_SUPER_ADMIN',
             ];
         }
 

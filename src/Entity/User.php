@@ -82,6 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
         return $this;
     }
 
@@ -104,13 +105,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return $this->email . ':' . $this->getSessionVersion();
+        return $this->email.':'.$this->getSessionVersion();
     }
 
     /**
      * @return list<string>
-     * @see UserInterface
      *
+     * @see UserInterface
      */
     public function getRoles(): array
     {
@@ -166,12 +167,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsBanned(bool $isBanned): self
     {
         $this->isBanned = $isBanned;
+
         return $this;
     }
 
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
         return $this;
     }
 
@@ -183,6 +186,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setConfirmationToken(?string $token): self
     {
         $this->confirmationToken = $token;
+
         return $this;
     }
 
@@ -194,6 +198,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTokenExpiresAt(?\DateTimeInterface $tokenExpiresAt): self
     {
         $this->tokenExpiresAt = $tokenExpiresAt;
+
         return $this;
     }
 
@@ -201,6 +206,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRegisteredAt(): self
     {
         $this->registeredAt = new \DateTime('now');
+
         return $this;
     }
 
@@ -230,6 +236,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTempPassword(?string $tempPassword): self
     {
         $this->tempPassword = $tempPassword;
+
         return $this;
     }
 
@@ -250,6 +257,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function incrementSessionVersion(): void
     {
-        $this->sessionVersion++;
+        ++$this->sessionVersion;
     }
 }

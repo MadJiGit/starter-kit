@@ -13,7 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
 {
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     #[Route('/admin', name: 'admin_dashboard')]
     public function index(): Response
@@ -45,8 +47,8 @@ class DashboardController extends AbstractDashboardController
 
         if ($this->isGranted('ROLE_ADMIN') || $this->isGranted('ROLE_SUPER_ADMIN')) {
             yield MenuItem::linkToCrud('User Management', 'fa fa-users', User::class);
-//            yield MenuItem::linkToRoute('Go to Editor Menu', 'fas fa-edit', '');
-//            yield MenuItem::linkToRoute('Go to User Menu', 'fas fa-edit', '');
+            //            yield MenuItem::linkToRoute('Go to Editor Menu', 'fas fa-edit', '');
+            //            yield MenuItem::linkToRoute('Go to User Menu', 'fas fa-edit', '');
         }
     }
 }

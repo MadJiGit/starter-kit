@@ -10,8 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -24,7 +24,7 @@ class RegistrationController extends AbstractController
     private TranslatorInterface $translator;
     private EmailService $emailService;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher,  EntityManagerInterface $entityManager, LoggerInterface $logger, TranslatorInterface $translator, EmailService $emailService)
+    public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, LoggerInterface $logger, TranslatorInterface $translator, EmailService $emailService)
     {
         $this->passwordHasher = $passwordHasher;
         $this->entityManager = $entityManager;
@@ -44,16 +44,19 @@ class RegistrationController extends AbstractController
             // Validate input fields
             if (empty($email) || empty($username) || empty($plainPassword)) {
                 $this->addFlash('error', $this->translator->trans('register.fields_required', [], 'flash_messages_translate'));
+
                 return $this->redirectToRoute('app_register');
             }
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $this->addFlash('error', $this->translator->trans('register.invalid_email', [], 'flash_messages_translate'));
+
                 return $this->redirectToRoute('app_register');
             }
 
             if (strlen($plainPassword) < 6) {
                 $this->addFlash('error', $this->translator->trans('register.password_too_short', [], 'flash_messages_translate'));
+
                 return $this->redirectToRoute('app_register');
             }
 
@@ -61,6 +64,7 @@ class RegistrationController extends AbstractController
             $existingEmail = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
             if ($existingEmail) {
                 $this->addFlash('error', $this->translator->trans('register.email_exists', [], 'flash_messages_translate'));
+
                 return $this->redirectToRoute('app_register');
             }
 
@@ -68,6 +72,7 @@ class RegistrationController extends AbstractController
             $existingUsername = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
             if ($existingUsername) {
                 $this->addFlash('error', $this->translator->trans('register.username_exists', [], 'flash_messages_translate'));
+
                 return $this->redirectToRoute('app_register');
             }
 
@@ -114,6 +119,7 @@ class RegistrationController extends AbstractController
 
             } catch (TransportExceptionInterface $e) {
                 $this->addFlash('error', $this->translator->trans('register.confirmation_error', [], 'flash_messages_translate'));
+
                 return $this->redirectToRoute('app_register');
             }
         }
@@ -129,16 +135,18 @@ class RegistrationController extends AbstractController
         if (!$user) {
             $this->addFlash('error', $this->translator->trans('register.invalid_token', [], 'flash_messages_translate'));
             $message = $this->translator->trans('emails.expired_token');
+
             return $this->render('registration/confirmation_failed.html.twig', [
-                'message' => $message
+                'message' => $message,
             ]);
         }
 
         if ($user->getTokenExpiresAt() < new \DateTime()) {
             $this->addFlash('warning', $this->translator->trans('register.token_expired', [], 'flash_messages_translate'));
             $message = $this->translator->trans('emails.expired_link');
+
             return $this->render('registration/confirmation_failed.html.twig', [
-                'message' => $message
+                'message' => $message,
             ]);
         }
 
@@ -148,6 +156,7 @@ class RegistrationController extends AbstractController
         $this->entityManager->flush();
 
         $this->addFlash('success', $this->translator->trans('register.email_verified', [], 'flash_messages_translate'));
+
         return $this->redirectToRoute('app_login');
     }
 
@@ -162,16 +171,18 @@ class RegistrationController extends AbstractController
             if (!isset($existingFlashMessages['error'])) {
                 $this->addFlash('error', $this->translator->trans('register.invalid_email', [], 'flash_messages_translate'));
             }
+
             return $this->redirectToRoute('app_login');
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
-        $this->logger->debug('User active status: ' . ($user && $user->isActive() ? 'true' : 'false'));
+        $this->logger->debug('User active status: '.($user && $user->isActive() ? 'true' : 'false'));
 
         if (!$user || $user->isActive()) {
             if (!isset($existingFlashMessages['error'])) {
                 $this->addFlash('error', $this->translator->trans('register.already_confirmed_or_not_found', [], 'flash_messages_translate'));
             }
+
             return $this->redirectToRoute('app_login');
         }
 

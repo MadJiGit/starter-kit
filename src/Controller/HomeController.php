@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
+use App\Form\ContactFormType;
+use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\ContactFormType;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use App\Service\EmailService;
 
 #[Route('/home')]
 class HomeController extends AbstractController
@@ -28,7 +28,6 @@ class HomeController extends AbstractController
         return $this->render('privacy_policy.html.twig');
     }
 
-
     #[Route('/contact', name: 'mail_contact')]
     public function contact(Request $request): Response
     {
@@ -39,7 +38,7 @@ class HomeController extends AbstractController
             $data = $form->getData();
             $email = $data['email'] ?? 'invalid_email@mail.com';
             $subject_pref = $this->translator->trans('emails.contact.subject_pref');
-            $subject = $subject_pref . ' ' . ($data['name'] ?? 'Unknown');
+            $subject = $subject_pref.' '.($data['name'] ?? 'Unknown');
             $context = $data['message'] ?? 'No message provided';
 
             $success = $this->emailService->sendEmail(

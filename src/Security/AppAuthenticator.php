@@ -2,8 +2,8 @@
 
 namespace App\Security;
 
-use Psr\Log\LoggerInterface;
 use App\Repository\UserRepository;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +11,6 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
@@ -46,22 +45,22 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         $password = $request->request->get('_password', '');
         $csrfToken = $request->request->get('_csrf_token', '');
 
-        $this->logger->info("Authentication attempt for email: " . $email);
+        $this->logger->info('Authentication attempt for email: '.$email);
 
         $user = $this->userRepository->findOneBy(['email' => $email]);
 
         if (!$user) {
-            $this->logger->error("Authentication failed: User not found.");
+            $this->logger->error('Authentication failed: User not found.');
             throw new CustomUserMessageAuthenticationException('auth.user_not_found');
         }
 
         if (!$user->isActive()) {
-            $this->logger->error("Authentication failed: User is not verified.");
+            $this->logger->error('Authentication failed: User is not verified.');
             throw new CustomUserMessageAuthenticationException('auth.email_not_verified');
         }
 
         if ($user->isBanned()) {
-            $this->logger->error("Authentication failed: User is banned.");
+            $this->logger->error('Authentication failed: User is banned.');
             throw new CustomUserMessageAuthenticationException('auth.user_banned');
         }
 
@@ -105,7 +104,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
         $session->set('last_username', $request->request->get('_email', ''));
         $message = $exception->getMessage();
-        $this->logger->error("Authentication failed: " . $message);
+        $this->logger->error('Authentication failed: '.$message);
 
         if (method_exists($session, 'getFlashBag') && !$session->getFlashBag()->has('error')) {
             $translatedMessage = $this->translator->trans($message, [], 'flash_messages_translate');
@@ -118,6 +117,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     protected function getLoginUrl(Request $request): string
     {
         $locale = $request->getLocale();
+
         return $this->router->generate('app_login', ['_locale' => $locale]);
     }
 }

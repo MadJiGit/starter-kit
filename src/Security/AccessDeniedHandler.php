@@ -22,25 +22,23 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 
     public function handle(Request $request, AccessDeniedException $exception): RedirectResponse
     {
-        // Връща потребителя на предишната страница, ако има такава
-//        return new RedirectResponse($request->headers->get('referer', '/'));
+        //        return new RedirectResponse($request->headers->get('referer', '/'));
         $referer = $request->headers->get('referer', $this->router->generate('user_dashboard'));
+
         return new RedirectResponse($referer);
     }
 
     public function onKernelException(ExceptionEvent $event): void
     {
         if ($_ENV['APP_DEBUG']) {
-            // Остави Symfony да си показва debug page
             return;
         }
 
         $exception = $event->getThrowable();
         $referer = '/postures/all';
 
-//         dd($exception->getMessage());
+        //         dd($exception->getMessage());
 
-        // Проверяваме дали е AccessDeniedException (403 Forbidden)
         if ($exception instanceof AccessDeniedHttpException || $exception instanceof NotFoundHttpException) {
             $request = $event->getRequest();
             $referer = $request->headers->get('referer') ?? '/user/me';
@@ -50,15 +48,13 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
                 $session->getFlashBag()->add('warning', 'access_denied.message');
             }
 
-            // Редиректваме обратно към предишната страница (или към началната)
             $response = new RedirectResponse($referer);
             $event->setResponse($response);
         }
 
-//        dd($exception->getMessage());
-//        dump($exception->getMessage());
+        //        dd($exception->getMessage());
+        //        dump($exception->getMessage());
 
-        // **Персонализиране на съобщенията според типа на грешката**
         $errorMessage = match (true) {
             str_contains($exception->getMessage(), 'password cannot be null') => 'The password field is required.',
             str_contains($exception->getMessage(), 'Integrity constraint violation') => 'This action violates database constraints.',
@@ -66,10 +62,8 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
             default => 'An unexpected error occurred. Please try again.',
         };
 
-        // Ако е друга грешка (като password cannot be null) -> пращаме към страницата за грешки
-//        $referer = $request->headers->get('referer', '/');
         $errorUrl = $this->router->generate('error_page', [
-            'message' => urlencode($errorMessage), // Кодиране на съобщението за URL
+            'message' => urlencode($errorMessage),
             'referer' => urlencode($referer),
         ]);
         $response = new RedirectResponse($errorUrl);

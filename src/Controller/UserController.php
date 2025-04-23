@@ -7,14 +7,13 @@ use App\Form\UserProfileType;
 use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/user')]
@@ -67,6 +66,7 @@ class UserController extends AbstractController
             $newUsername = $form->get('username')->getData();
             if (!$passwordHasher->isPasswordValid($user, $oldPassword)) {
                 $this->addFlash('danger', $this->translator->trans('user.incorrect_password', [], 'flash_messages_translate'));
+
                 return $this->redirectToRoute('user_edit_profile');
             }
 
@@ -75,6 +75,7 @@ class UserController extends AbstractController
 
                 if ($existingUser) {
                     $this->addFlash('error', $this->translator->trans('user.username_exists', [], 'flash_messages_translate'));
+
                     return $this->redirectToRoute('user_edit_profile');
                 }
 
