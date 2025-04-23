@@ -42,8 +42,6 @@ class ContactFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            // няма нужда от data_class
-        ]);
+        $resolver->setDefaults([]);
     }
 }

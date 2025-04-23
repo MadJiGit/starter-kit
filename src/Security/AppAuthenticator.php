@@ -60,6 +60,11 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
             throw new CustomUserMessageAuthenticationException('auth.email_not_verified');
         }
 
+        if ($user->isBanned()) {
+            $this->logger->error("Authentication failed: User is banned.");
+            throw new CustomUserMessageAuthenticationException('auth.user_banned');
+        }
+
         return new Passport(
             new UserBadge($email),
             new PasswordCredentials($password),

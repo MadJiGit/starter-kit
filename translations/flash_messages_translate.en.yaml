@@ -105,3 +105,4 @@ access_denied:
 auth:
   user_not_found: "User not found."
   email_not_verified: "You need to confirm your email before logging in."
+  user_banned: "Your account has been blocked. Please contact the administrator."

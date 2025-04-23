@@ -85,6 +85,9 @@ class UserCrudController extends AbstractCrudController
         $isSuperAdmin = in_array('ROLE_SUPER_ADMIN', $user->getRoles()); // Check if SUPER_ADMIN
         $isAdmin = in_array('ROLE_ADMIN', $user->getRoles()); // Check if ADMIN
 
+        $entity = $this->getContext()?->getEntity()?->getInstance();
+        $isDisabled = $entity instanceof User && in_array('ROLE_SUPER_ADMIN', $entity->getRoles());
+
         if(!$isSuperAdmin){
             return [
                 EmailField::new('email')->setDisabled(true), // SUPER_ADMIN can edit, others cannot
@@ -93,6 +96,10 @@ class UserCrudController extends AbstractCrudController
                 BooleanField::new('isActive')
                     ->setLabel('Active') // Both SUPER_ADMIN and ADMIN can activate/deactivate users
                     ->setPermission('ROLE_ADMIN'), // Minimum role: Admin
+                BooleanField::new('isBanned')
+                    ->setLabel('Banned')
+                    ->setPermission('ROLE_ADMIN')
+                    ->setFormTypeOption('disabled', $isDisabled),
                 TextField::new('rolesDisplay', 'Roles')
                     ->formatValue(function ($value, $entity) {
                         return implode(', ', $entity->getRoles()); // Convert array to string
@@ -106,7 +113,10 @@ class UserCrudController extends AbstractCrudController
                 BooleanField::new('isActive')
                     ->setLabel('Active') // Both SUPER_ADMIN and ADMIN can activate/deactivate users
                     ->setPermission('ROLE_ADMIN'), // Minimum role: Admin
-
+                BooleanField::new('isBanned')
+                    ->setLabel('Banned')
+                    ->setPermission('ROLE_ADMIN')
+                    ->setFormTypeOption('disabled', $isDisabled),
                 ChoiceField::new('roles')
                     ->allowMultipleChoices()
                     ->setChoices($this->getAvailableRoles())
