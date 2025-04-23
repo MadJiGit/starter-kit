@@ -60,6 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null; // Updates when user is modified
 
+    #[ORM\Column(type: 'integer')]
+    private int $sessionVersion = 1;
+
     public function __construct()
     {
         $this->registeredAt = new \DateTime('now'); // Set current timestamp automatically
@@ -100,7 +103,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string)$this->email;
+        return $this->email . ':' . $this->getSessionVersion();
     }
 
     /**
@@ -240,5 +243,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $event->getEntityChangeSet()['roles'][1][] = 'ROLE_SUPER_ADMIN';
+    }
+
+    public function getSessionVersion(): int
+    {
+        return $this->sessionVersion;
+    }
+
+    public function incrementSessionVersion(): void
+    {
+        $this->sessionVersion++;
     }
 }

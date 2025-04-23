@@ -1,5 +1,5 @@
 parameters:
   app.emails:
     no_reply: 'no-reply@mailtrap.io'
-    contact: 'no-reply@mailtrap.io'
+    contact: 'contact@mailtrap.io'
 

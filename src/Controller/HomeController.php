@@ -3,24 +3,23 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ContactFormType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mime\Email;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Service\EmailService;
 
 #[Route('/home')]
 class HomeController extends AbstractController
 {
-    private ContainerInterface $containerFull;
     private TranslatorInterface $translator;
+    private EmailService $emailService;
 
-    public function __construct(ContainerInterface $container, TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, EmailService $emailService)
     {
-        $this->containerFull = $container;
         $this->translator = $translator;
+        $this->emailService = $emailService;
     }
 
     #[Route('/privacy', name: 'privacy_policy')]
@@ -38,22 +37,22 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            $email = $data['email'] ?? null;
+            $subject_pref = $this->translator->trans('emails.contact.subject_pref');
+            $subject = $subject_pref . ' ' . $data['name'] ?? null;
+            $context = $data['message'] ?? null;
 
-            try {
-                $mailer = $this->containerFull->get('mailer.contact');
+            $success = $this->emailService->sendEmail(
+                $email,
+                $subject,
+                $context,
+                'contact'
+            );
 
-                $email = (new Email())
-                    ->from('contact@body-language.org') // нужно за SMTP
-                    ->replyTo($data['email'])           // потребителят, който пише
-                    ->to('contact@body-language.org')
-                    ->subject('Съобщение от ' . $data['name'])
-                    ->text($data['message']);
-
-                $mailer->send($email);
-
+            if ($success) {
                 $this->addFlash('success', $this->translator->trans('contact.success', [], 'flash_messages_translate'));
-            } catch (\Throwable $e) {
-                $this->addFlash('danger', $this->translator->trans('contact.error', ['%error%' => $e->getMessage()], 'flash_messages_translate'));
+            } else {
+                $this->addFlash('danger', $this->translator->trans('contact.error', [], 'flash_messages_translate'));
             }
 
             return $this->redirectToRoute('mail_contact');

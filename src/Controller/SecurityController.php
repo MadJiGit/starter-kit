@@ -108,7 +108,7 @@ class SecurityController extends AbstractController
 
             $subject = $this->translator->trans('emails.no_reply.restore_pass');
 
-            $success = $this->emailService->sendEmail(
+            $success = $this->emailService->sendTemplatedEmail(
                 $user->getEmail(),
                 $subject,
                 'emails/confirmation_reset_password.html.twig',
@@ -167,7 +167,7 @@ class SecurityController extends AbstractController
 
             $subject = $this->translator->trans('emails.no_reply.confirm_pass');
 
-            $success = $this->emailService->sendEmail(
+            $success = $this->emailService->sendTemplatedEmail(
                 $user->getEmail(),
                 $subject,
                 'emails/confirm_new_password.html.twig',
@@ -207,6 +207,7 @@ class SecurityController extends AbstractController
         }
 
         $user->setPassword($user->getTempPassword());
+        $user->incrementSessionVersion();
         $user->setTempPassword(null);
         $user->setConfirmationToken(null);
         $user->setTokenExpiresAt(null);
@@ -221,7 +222,7 @@ class SecurityController extends AbstractController
 
         $subject = $this->translator->trans('emails.no_reply.pass_changed');
 
-        $success = $this->emailService->sendEmail(
+        $success = $this->emailService->sendTemplatedEmail(
             $user->getEmail(),
             $subject,
             'emails/password_changed.html.twig',

@@ -142,6 +142,8 @@ emails:
     restore_pass: Restore Password Link
   expired_token: 'Invalid or expired confirmation token.'
   expired_link: 'Your confirmation link has expired. Please request a new one.'
+  contact:
+    subject_pref: Message from
 
 forgotten_password:
   email:

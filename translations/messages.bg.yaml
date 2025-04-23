@@ -142,6 +142,8 @@ emails:
     restore_pass: Линк за възстановяване на паролата
   expired_token: 'Невалиден или изтекъл линк за потвърждение.'
   expired_link: 'Линкът е изтекъл. Моля, поискайте нов.'
+  contact:
+    subject_pref: Съобщение от
 
 forgotten_password:
   email:

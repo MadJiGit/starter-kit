@@ -42,7 +42,7 @@ class TemporaryController  extends AbstractController
 
         $subject = "test test test";
 
-        $success = $this->emailService->sendEmail(
+        $success = $this->emailService->sendTemplatedEmail(
             'custom@email.com',
             $subject,
             'emails/confirmation.html.twig',

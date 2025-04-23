@@ -98,7 +98,7 @@ class UserController extends AbstractController
 
             $subject = $this->translator->trans('emails.no_reply.confirm_email');
 
-            $success = $this->emailService->sendEmail(
+            $success = $this->emailService->sendTemplatedEmail(
                 $user->getEmail(),
                 $subject,
                 'emails/confirmation.html.twig',
