@@ -38,21 +38,24 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         $exception = $event->getThrowable();
         $referer = '/postures/all';
 
-         dd($exception->getMessage());
+//         dd($exception->getMessage());
 
         // Проверяваме дали е AccessDeniedException (403 Forbidden)
         if ($exception instanceof AccessDeniedHttpException || $exception instanceof NotFoundHttpException) {
             $request = $event->getRequest();
             $referer = $request->headers->get('referer') ?? '/user/me';
 
-            $request->getSession()->getFlashBag()->add('warning', 'access_denied.message');
+            $session = $request->getSession();
+            if (method_exists($session, 'getFlashBag')) {
+                $session->getFlashBag()->add('warning', 'access_denied.message');
+            }
 
             // Редиректваме обратно към предишната страница (или към началната)
             $response = new RedirectResponse($referer);
             $event->setResponse($response);
         }
 
-        dd($exception->getMessage());
+//        dd($exception->getMessage());
 //        dump($exception->getMessage());
 
         // **Персонализиране на съобщенията според типа на грешката**
