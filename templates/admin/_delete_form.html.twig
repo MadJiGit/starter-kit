@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+<form method="post" action="{{ path('app_user_delete', {'id': user.id, '_locale': app.request.locale}) }}" class="delete-user-form">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+    <button class="delete-item btn btn-danger btn-sm"
+            data-url="{{ path('app_user_delete', {'id': user.id, '_locale': app.request.locale}) }}"
+            data-token="{{ csrf_token('delete' ~ user.id) }}">
+        {{ 'admin.delete_user'|trans }}
+    </button>
+</form>

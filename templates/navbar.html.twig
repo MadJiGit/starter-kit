@@ -1,0 +1,94 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link fw-bold" href="{% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+                        {{ path('admin_dashboard', {'_locale': app.request.locale}) }}
+                    {% else %}
+                        {{ path('user_dashboard', {'_locale': app.request.locale}) }}
+                    {% endif %}">{{ 'navbar.home'|trans }}</a>
+            </li>
+        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">§
+            {% if app.user %}
+                <ul class="navbar-nav role-navbar">
+                    <li class="nav-item">
+                        <a class="nav-link">{{ 'navbar.welcome'|trans }}, {{ app.user.username|capitalize }}</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('path_1', {'_locale': app.request.locale}) }}">Link 1</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_EDITOR') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('path_2', {'_locale': app.request.locale}) }}">Link 2</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('send_email', {'_locale': app.request.locale}) }}">send_email</a>
+                    </li>
+                </ul>
+            {% endif %}
+            <ul class="navbar-nav logout-link">
+                {% if app.user and is_granted('ROLE_EDITOR') %}
+{#                    <li class="nav-item position-relative">#}
+{#                        <a class="nav-link" href="{{ path('editor_feedback_inbox', {'_locale': app.request.locale}) }}">#}
+{#                            <i class="fas fa-inbox"></i>#}
+{#                            {% if is_granted('ROLE_EDITOR') and unreadFeedbackCount > 0 %}#}
+{#                            {% if unreadFeedbackCount > 0 %}#}
+{#                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">#}
+{#                                    {{ unreadFeedbackCount }}#}
+{#                                </span>#}
+{#                            {% endif %}#}
+{#                            {{ 'navbar.inbox'|trans }}#}
+{#                        </a>#}
+{#                    </li>#}
+               {% elseif app.user and is_granted('ROLE_USER') %}
+{#                   <li class="nav-item position-relative">#}
+{#                       <a class="nav-link" href="{{ path('user_feedback_inbox', {'_locale': app.request.locale}) }}">#}
+{#                           <i class="fas fa-inbox"></i>#}
+{#                           {% if is_granted('ROLE_USER') and unreadFeedbackCount > 0 %}#}
+{#                               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">#}
+{#                                    {{ unreadFeedbackCount }}#}
+{#                                </span>#}
+{#                           {% endif %}#}
+{#                           {{ 'navbar.inbox'|trans }}#}
+{#                       </a>#}
+{#                   </li>#}
+                {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="localeDropdown" role="button" data-bs-toggle="dropdown">
+                            🌐 {{ app.request.locale|upper }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'bg'})) }}">Български</a></li>
+                            <li><a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">English</a></li>
+                        </ul>
+                    </li>
+                {% if app.user %}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="#">Settings</a>#}
+{#                    </li>#}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_profile', {'_locale': app.request.locale}) }}">{{ 'navbar.profile'|trans }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{{ path('app_logout', {'_locale': app.request.locale}) }}">{{ 'navbar.logout'|trans }}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login', {'_locale': app.request.locale}) }}">{{ 'navbar.login'|trans }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_register', {'_locale': app.request.locale}) }}">{{ 'navbar.register'|trans }}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

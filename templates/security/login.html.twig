@@ -1,41 +1,67 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Log in!{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% set email = last_username|default(app.session.get('last_username')) %}
+    <div class="login-container">
+        <h2>{{ 'login.title'|trans }}</h2>
+
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+
+        {% for message in app.flashes('warning') %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+
+        <form method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="form-group">
+                <label for="inputEmail">{{ 'login.email'|trans }}</label>
+                <input type="email" name="_email" id="inputEmail" class="form-control" value="{{ email }}" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword">{{ 'login.password'|trans }}</label>
+                <input type="password" name="_password" id="inputPassword" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">{{ 'login.submit'|trans }}</button>
+            <div>
+                <label>
+                    <input type="checkbox" name="_remember_me"> {{ 'login.remember_me'|trans }}
+                </label>
+            </div>
+        </form>
+
+        {% if resend_email %}
+            <a href="{{ path('app_resend_confirmation', {'email': email, '_locale': app.request.locale}) }}" class="btn btn-warning mt-3">
+                {{ 'login.resend_email'|trans }}
+            </a>
         {% endif %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-            </div>
-        {% endif %}
+        <p class="mt-3">
+            {#        {{ 'login.forgotten_pass_title'|trans }}<br>#}
+            <a href="{{ path('forgotten_pass', {'_locale': app.request.locale}) }}">
+                {{ 'login.forgotten_pass_title'|trans }}
+            </a>
+        </p>
+        <p class="mt-3">
+            {#        {{ 'login.no_account'|trans }}<br>#}
+            <a href="{{ path('app_register', {'_locale': app.request.locale}) }}">
+                {{ 'login.no_account'|trans }}
+            </a>
+        </p>
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+        {#    <p class="mt-3">{{ 'login.forgotten_pass'|trans }} <a href="{{ path('forgotten_pass', {'_locale': app.request.locale}) }}">{{ 'login.forgotten_pass'|trans }}</a></p>#}
+        {#    <p class="mt-3">{{ 'login.no_account'|trans }} <a href="{{ path('app_register', {'_locale': app.request.locale}) }}">{{ 'login.register_here'|trans }}</a></p>#}
+    </div>
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
-
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
-
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
-            </div>
-        #}
-
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
 {% endblock %}

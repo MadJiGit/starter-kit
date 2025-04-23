@@ -1,0 +1,231 @@
+temporary:
+  header: Temporary Page
+  text: This is a temporary page that will be replaced with the main page of the application.
+  back: Back
+
+menu:
+  inbox: Inbox
+  settings: Settings
+  profile: My Profile
+  logout: Logout
+  login: Login
+  register: Register
+  report: Report
+  search: Search
+  add_posture: Add Posture
+  postures: Postures
+  categories: Categories
+  subcategories: Subcategories
+  dashboard: Dashboard
+
+form:
+  submit: Submit
+  cancel: Cancel
+  confirm_delete_header: Confirm Deletion
+  delete: Yes, delete
+  confirm_delete_message: Are you sure you want to delete this item?
+  name: Name
+  email: Email
+  message: Message
+
+navbar:
+  home: Home
+  welcome: Welcome
+  inbox: Inbox
+  profile: My Profile
+  logout: Logout
+  login: Login
+  register: Register
+
+admin:
+  user:
+    edit_title: Edit User
+    back_to_list: Back to list
+    update_button: Update
+  show:
+    delete_title: Delete User
+    user: User
+    id: ID
+    yes: Yes
+    roles: Roles
+    password: Password
+    back: Back
+    edit: Edit
+  new_user:
+    title: New User
+    header: Create New User
+  index:
+    title: User Index
+    actions: Actions
+    show: Show
+    no_records: No records found
+
+login:
+  title: Login
+  email: Email
+  password: Password
+  submit: Login
+  remember_me: Remember Me
+  resend_email: Resend Confirmation Email
+  no_account: Don't have an account?
+  register_here: Register here
+  forgotten_pass_title: Forgot Password?
+  forgotten_pass: Click to reset your password
+  forgotten_pass_new: Click to reset your password
+
+user_profile:
+  edit_title: Edit Profile
+  privacy_policy: Privacy Policy
+  contact: Contact
+  email: Email
+  username: Username
+  current_password: Current Password
+  new_password: New Password
+  repeat_new_password: Repeat New Password
+
+user:
+  active: Active
+  roles: Roles
+  password: Password
+  show: Show
+  edit: Edit
+  add_new: Add New User
+
+footer:
+  copyright: Body Language. All rights reserved.
+
+error_page:
+  title: An error occurred
+  go_back: Go Back
+
+registration:
+  title: Registration
+  email: Email
+  username: Username
+  password: Password
+  confirm_password: Confirm Password
+  submit: Register
+  already_have_account: Already have an account?
+  login_here: Login here
+  confirmation_failed: Confirmation failed. The link may have expired or has already been used.
+  request_new_confirmation: Request a new confirmation link
+  request_new_password: Request a new password
+
+emails:
+  confirm_email:
+    header: Contact Us
+    contact_us: Contact Us
+    send: Send
+    confirmations_header: Hello,
+    confirmations_message_header: Please confirm your email by clicking the link below
+    confirm_email: Confirm Email
+    confirmations_message_footer: If you did not request this, please ignore this email and your password will remain unchanged.
+    confirm_expire: This link will expire in 24 hours
+    confirmations_footer: Thank you for using our application!
+  confirmation_reset_password:
+    confirm_password: Confirm Password
+    confirmations_message_header: 'We received a request to reset your password. Please click the link below to set a new password: '
+    confirmations_message_footer: If you did not request this, please ignore this email and your password will remain unchanged, and contact us if you have any questions
+    confirm_expire: This link will expire in 10 minutes.
+  confirmation_new_password:
+    header: Confirm New Password
+    msg: 'Please confirm your password change by clicking the link below: '
+    confirm_password: If you did not request this, please ignore this email and your password will remain unchanged, and contact us if you have any questions
+    footer: 'If you did not request this, please ignore this email and your password will remain unchanged, and contact us if you have any questions: '
+  password_changed:
+    header: You successfully changed your password
+    msg: You can log in with your new password.
+  no_reply:
+    confirm_email: Confirm your email
+    pass_changed: Your Password Has Been Changed
+    confirm_pass: Confirm Your New Password
+    restore_pass: Restore Password Link
+  expired_token: 'Invalid or expired confirmation token.'
+  expired_link: 'Your confirmation link has expired. Please request a new one.'
+
+forgotten_password:
+  email:
+    label: Email Address
+    placeholder: Enter your email address
+  reset_password:
+    title: Reset Password
+    submit: Reset Password
+  form_new_pass:
+    new_pass: New Password
+    confirm_pass: Confirm New Password
+    invalid_msg: Passwords do not match. Please try again.
+
+privacy_policy:
+  title: Privacy Policy
+  last_updated: "Last updated: March 25, 2025"
+  intro_title: 1. Introduction
+  intro_text: This policy aims to inform you what personal data we collect through this website, how we use, store, and protect it, in accordance with the General Data Protection Regulation (GDPR).
+
+  data_collected_title: 2. What Data We Collect
+  data_collected:
+    name_email: Name and email address (upon registration or contact)
+    login_info: Login information (username, password)
+    registration_date: Registration date and site activity
+
+  data_usage_title: 3. How We Use the Data
+  data_usage_intro: "Your data is used solely for the purposes of:"
+  data_usage:
+    authentication: Verifying your identity when logging in
+    profile_management: Managing user profiles
+    email_notifications: Sending confirmation emails, notifications, and important updates
+
+  cookies_title: 4. Cookies
+  cookies_intro: "The website uses only session cookies necessary for proper system operation:"
+  cookies:
+    phpsessid: used to maintain your session after login.
+  cookies_note: We do not use cookies for analytics, advertising, or tracking.
+
+  storage_title: 5. Data Storage
+  storage_text: Your data is securely stored on our server. We do not share it with third parties. Data is kept until the user account is deleted or upon request.
+
+  rights_title: 6. Your Rights
+  rights_intro: "Under GDPR, you have the right to:"
+  rights:
+    copy: Request a copy of the data we store
+    correct: Correct or update personal information
+    delete: Delete your account and related data
+    limit: Restrict or object to processing
+  rights_contact: "To exercise these rights, please contact us at:"
+
+  contact_title: 7. Contact Us
+  contact_text: "If you have questions about your privacy and data security, don’t hesitate to contact us via the contact form or at:"
+
+  thank_you: Thank you for using our site with trust.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

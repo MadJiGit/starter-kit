@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'admin.index.title'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'admin.index.title'|trans }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ 'admin.show.id'|trans }}</th>
+                <th>{{ 'admin.show.yes'|trans }}</th>
+                <th>{{ 'admin.show.roles'|trans }}</th>
+                <th>{{ 'admin.show.password'|trans }}</th>
+                <th>{{ 'admin.index.actions'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.Yes }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.password }}</td>
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id, '_locale': app.request.locale}) }}">{{ 'admin.index.show'|trans }}</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id, '_locale': app.request.locale}) }}">{{ 'admin.show.edit'|trans }}</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">{{ 'admin.index.no_records'|trans }}/td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_new', {'_locale': app.request.locale}) }}">{{ 'admin.new_user.title'|trans }}</a>
+{% endblock %}

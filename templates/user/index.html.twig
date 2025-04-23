@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'admin.user.edit_title'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'admin.user.edit_title'|trans }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>{{ 'user.active'|trans }}</th>
+                <th>{{ 'user.roles'|trans }}</th>
+                <th>{{ 'user.password'|trans }}</th>
+                <th>{{ 'subcategory.actions'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.Yes }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.password }}</td>
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id, '_locale': app.request.locale}) }}">{{ 'admin.user.show'|trans }}</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id, '_locale': app.request.locale}) }}">{{ 'admin.user.edit'|trans }}</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">{{ 'form.cancel'|trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_new', {'_locale': app.request.locale}) }}">{{ 'user.add_new'|trans }}</a>
+{% endblock %}

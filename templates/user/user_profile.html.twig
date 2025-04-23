@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'user_profile.edit_title'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'user_profile.edit_title'|trans }}</h1>
+    <p>{{ 'navbar.welcome'|trans }} {{ app.user.username|capitalize }}!</p>
+    <a href="{{ path('user_edit_profile', {'_locale': app.request.locale}) }}" class="btn btn-primary">{{ 'admin.user.update_button'|trans }}</a>
+
+    <a href="{{ path('privacy_policy', {'_locale': app.request.locale}) }}" class="btn btn-primary">{{ 'user_profile.privacy_policy'|trans }}</a>
+
+    <a href="{{ path('mail_contact', {'_locale': app.request.locale}) }}" class="btn btn-primary">{{ 'user_profile.contact'|trans }}</a>
+
+{% endblock %}

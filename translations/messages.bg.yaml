@@ -1,0 +1,231 @@
+temporary:
+  header: Временна страница
+  text: Това е временна страница, която ще бъде заменена с основната страница на приложението.
+  back: Назад
+
+menu:
+  inbox: Входящи
+  settings: Настройки
+  profile: Моят Профил
+  logout: Изход
+  login: Вход
+  register: Регистрация
+  report: Докладвай
+  search: Търси
+  add_posture: Добави поза
+  postures: Стойки
+  categories: Категории
+  subcategories: Подкатегории
+  dashboard: Табло
+
+form:
+  submit: Изпрати
+  cancel: Отказ
+  confirm_delete_header: Потвърждение за изтриване
+  delete: Да, изтрий
+  confirm_delete_message: Сигурни ли сте, че искате да изтриете този елемент?
+  name: Име
+  email: Имейл
+  message: Съобщение
+
+navbar:
+  home: Начало
+  welcome: Здравей
+  inbox: Съобщения
+  profile: Моят профил
+  logout: Изход
+  login: Вход
+  register: Регистрация
+
+admin:
+  user:
+    edit_title: Редакция на потребител
+    back_to_list: Обратно към списъка
+    update_button: Обнови
+  show:
+    delete_title: Изтриване на потребител
+    user: Потребител
+    id: ID
+    yes: Да
+    roles: Роли
+    password: Парола
+    back: Назад
+    edit: Редакция
+  new_user:
+    title: Нов потребител
+    header: Създай нов потребител
+  index:
+    title: Индекс на потребителите
+    actions: Действия
+    show: Покажи
+    no_records: Няма намерени записи
+
+login:
+  title: Вход
+  email: Имейл
+  password: Парола
+  submit: Вход
+  remember_me: Запомни ме
+  resend_email: Изпрати повторно имейл за потвърждение
+  no_account: Нямате акаунт?
+  register_here: Регистрирайте се тук
+  forgotten_pass_title: Забравена парола?
+  forgotten_pass: Кликнете, за да нулирате паролата си
+  forgotten_pass_new: Кликнете, за да нулирате паролата си
+
+user_profile:
+  edit_title: Редакция на профила
+  privacy_policy: Политика за поверителност
+  contact: Контакт
+  email: Имейл адрес
+  username: Потребителско име
+  current_password: Текуща парола
+  new_password: Нова парола
+  repeat_new_password: Повторете новата парола
+
+user:
+  active: Активен
+  roles: Роли
+  password: Парола
+  show: Показвай
+  edit: Редактирай
+  add_new: Добави нов потребител
+
+footer:
+  copyright: Body Language. Всички права запазени.
+
+error_page:
+  title: Възникна грешка
+  go_back: Назад
+
+registration:
+  title: Регистрация
+  email: Имейл
+  username: Потребителско име
+  password: Парола
+  confirm_password: Потвърдете паролата
+  submit: Регистрирай се
+  already_have_account: Вече имате акаунт?
+  login_here: Влезте тук
+  confirmation_failed: Потвърждаването не беше успешно. Линкът може да е изтекъл или вече да е използван.
+  request_new_confirmation: Изпрати нов линк за потвърждение
+  request_new_password: Заяви нова парола
+
+emails:
+  confirm_email:
+    header: Свържи се с нас
+    contact_us: Свържи се с нас
+    send: Изпрати
+    confirmations_header: Здравейте,
+    confirmations_message_header: Моля, потвърдете имейла си, като кликнете върху линка по-долу
+    confirm_email: Потвърди имейла
+    confirmations_message_footer: Ако не сте създали акаунт, моля, игнорирайте този имейл.
+    confirm_expire: Линкът за потвърждение е валиден за 24 часа.
+    confirmations_footer: Благодарим ви, че използвате нашето приложение!
+  confirmation_reset_password:
+    confirm_password: Потвърди паролата.
+    confirmations_message_header: 'Получихме заявка за смяна на паролата Ви. За да потвърдите, натиснете бутона по-долу: '
+    confirmations_message_footer: Ако не сте правили таква заявка, моля, уведомете нашият екип на
+    confirm_expire: Линкът за потвърждение е валиден за 10 минути.
+  confirmation_new_password:
+    header: Потвърдете смяната на паролата.
+    msg: 'Моля, потвърдете смяната на паролата си, като кликнете върху линка по-долу: '
+    confirm_password: Потвърди новата парола.
+    footer: 'Ако не сте правили такава заявка, можете да игнорирате този имейл или да ни сигнализирате на: '
+  password_changed:
+    header: Вие успешно сменихте вашата парола.
+    msg: Можете да влезете в профила си с новата парола
+  no_reply:
+    confirm_email: Потвърдете имейла
+    pass_changed: Паролата Ви е променена
+    confirm_pass: Потвърдете новата паролата
+    restore_pass: Линк за възстановяване на паролата
+  expired_token: 'Невалиден или изтекъл линк за потвърждение.'
+  expired_link: 'Линкът е изтекъл. Моля, поискайте нов.'
+
+forgotten_password:
+  email:
+    label: Имейл адрес
+    placeholder: Въведете имейл адреса си
+  reset_password:
+    title: Нулиране на парола
+    submit: Нулирай паролата
+  form_new_pass:
+    new_pass: Нова парола
+    confirm_pass: Потвърдете новата парола
+    invalid_msg: Паролите не съвпадат. Моля, опитайте отново.
+
+privacy_policy:
+  title: Политика за поверителност
+  last_updated: "Последна актуализация: 25 март 2025 г."
+  intro_title: 1. Въведение
+  intro_text: Настоящата политика има за цел да ви информира какви лични данни събираме чрез този уебсайт, как ги използваме, съхраняваме и защитаваме, съгласно Общия регламент за защита на данните (GDPR).
+
+  data_collected_title: 2. Какви данни събираме
+  data_collected:
+    name_email: Име и имейл адрес (при регистрация или контакт с нас)
+    login_info: Информация за вход (потребителско име, парола)
+    registration_date: Дата на регистрация и активност в сайта
+
+  data_usage_title: 3. Как използваме данните
+  data_usage_intro: "Вашите данни се използват единствено с цел:"
+  data_usage:
+    authentication: Удостоверяване на самоличност при вход в системата
+    profile_management: Управление на потребителски профили
+    email_notifications: Изпращане на имейли за потвърждение, известия и важни съобщения
+
+  cookies_title: 4. Бисквитки (Cookies)
+  cookies_intro: "Уебсайтът използва само сесийни бисквитки, необходими за правилната работа на системата:"
+  cookies:
+    phpsessid: използва се за поддържане на вашата сесия след вход.
+  cookies_note: Ние не използваме бисквитки за анализ, реклама или проследяване.
+
+  storage_title: 5. Съхранение на данни
+  storage_text: Вашите данни се съхраняват сигурно на сървъра ни. Не ги предоставяме на трети страни. Данните се пазят до изтриване на потребителския акаунт или при поискване.
+
+  rights_title: 6. Вашите права
+  rights_intro: "Съгласно GDPR имате право да:"
+  rights:
+    copy: Поискате копие на съхраняваните от нас данни
+    correct: Коригирате или актуализирате лична информация
+    delete: Изтриете акаунта си и свързаните с него данни
+    limit: Ограничите или възразите срещу обработването
+  rights_contact: "За упражняване на тези права, моля свържете се с нас на:"
+
+  contact_title: 7. Контакт с нас
+  contact_text: "Ако имате въпроси относно поверителността и сигурността на личните ви данни, не се колебайте да се свържете с нас чрез контактната форма или на имейл:"
+
+  thank_you: Благодарим ви, че използвате нашия сайт с доверие.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

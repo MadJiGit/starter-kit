@@ -1,0 +1,18 @@
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">{{ 'form.confirm_delete_header'|trans }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                {{ 'form.confirm_delete_message'|trans }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelDeleteBtn" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'form.cancel'|trans }}</button>
+                <button type="button" id="confirmDeleteBtn" class="btn btn-danger">{{ 'form.delete'|trans }}</button>
+            </div>
+        </div>
+    </div>
+</div>

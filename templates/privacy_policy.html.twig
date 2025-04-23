@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'privacy_policy.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="mb-4">{{ 'privacy_policy.title'|trans }}</h1>
+
+        <p><strong>{{ 'privacy_policy.last_updated'|trans }}</strong></p>
+
+        <hr>
+
+        <h2>{{ 'privacy_policy.intro_title'|trans }}</h2>
+        <p>{{ 'privacy_policy.intro_text'|trans }}</p>
+
+        <h2>{{ 'privacy_policy.data_collected_title'|trans }}</h2>
+        <ul>
+            <li>{{ 'privacy_policy.data_collected.name_email'|trans }}</li>
+            <li>{{ 'privacy_policy.data_collected.login_info'|trans }}</li>
+            <li>{{ 'privacy_policy.data_collected.registration_date'|trans }}</li>
+        </ul>
+
+        <h2>{{ 'privacy_policy.data_usage_title'|trans }}</h2>
+        <p>{{ 'privacy_policy.data_usage_intro'|trans }}</p>
+        <ul>
+            <li>{{ 'privacy_policy.data_usage.authentication'|trans }}</li>
+            <li>{{ 'privacy_policy.data_usage.profile_management'|trans }}</li>
+            <li>{{ 'privacy_policy.data_usage.email_notifications'|trans }}</li>
+        </ul>
+
+        <h2>{{ 'privacy_policy.cookies_title'|trans }}</h2>
+        <p>{{ 'privacy_policy.cookies_intro'|trans }}</p>
+        <ul>
+            <li><code>PHPSESSID</code> – {{ 'privacy_policy.cookies.phpsessid'|trans }}</li>
+        </ul>
+        <p>{{ 'privacy_policy.cookies_note'|trans }}</p>
+
+        <h2>{{ 'privacy_policy.storage_title'|trans }}</h2>
+        <p>{{ 'privacy_policy.storage_text'|trans }}</p>
+
+        <h2>{{ 'privacy_policy.rights_title'|trans }}</h2>
+        <p>{{ 'privacy_policy.rights_intro'|trans }}</p>
+        <ul>
+            <li>{{ 'privacy_policy.rights.copy'|trans }}</li>
+            <li>{{ 'privacy_policy.rights.correct'|trans }}</li>
+            <li>{{ 'privacy_policy.rights.delete'|trans }}</li>
+            <li>{{ 'privacy_policy.rights.limit'|trans }}</li>
+        </ul>
+        <p>{{ 'privacy_policy.rights.contact'|trans }} <a href="mailto:no-reply@mailtrap.io">youremail@yourdomain.com</a></p>
+
+        <h2>{{ 'privacy_policy.contact_title'|trans }}</h2>
+        <p>{{ 'privacy_policy.contact_text'|trans }} <a href="mailto:no-reply@mailtrap.io">youremail@yourdomain.com</a></p>
+
+        <hr>
+        <p><em>{{ 'privacy_policy.thank_you'|trans }}</em></p>
+    </div>
+{% endblock %}

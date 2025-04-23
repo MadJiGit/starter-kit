@@ -1,0 +1,107 @@
+posture:
+  added: "The posture was added successfully!"
+  updated: "The posture was updated successfully!"
+  deleted: "The posture was deleted successfully!"
+  invalid_csrf: "The CSRF token is invalid."
+
+js:
+  delete:
+    failed: "Failed to delete item."
+    error: "Error: Unable to delete item."
+  rings:
+    blocked: "Action is not allowed!"
+  postures:
+    blocked: "Action is not allowed!"
+
+rings:
+  form:
+    cleared: "Form cleared"
+    not_found: "Combination not found"
+    not_authorized: "Not authorized to save"
+    updated: "Combination updated successfully!"
+
+user:
+  crud:
+    edit:
+      success: "User updated successfully!"
+      superadmin_denied: "You cannot edit user with role SUPER_ADMIN!"
+  incorrect_password: "Incorrect current password."
+  username_exists: "This username is already taken. Please choose another one."
+  change_successful: "Change data successful! Please check your email to confirm your account."
+  confirmation_required: "Your profile has been updated. Please confirm your email."
+  email_send_error: "An error occurred while sending the confirmation email."
+
+category:
+  added: "Category added successfully."
+  updated: "Category updated successfully."
+  deleted: "Category deleted successfully."
+  name_bg:
+    invalid: "The category name in Bulgarian must contain only Cyrillic characters."
+  name_en:
+    invalid: "The category name in English must contain only Latin characters."
+
+error:
+  unexpected: "An unexpected error occurred."
+
+feedback:
+  sent_success: "Your message has been sent successfully. Thank you!"
+  not_found: "The message was not found."
+
+contact:
+  success: "Your message has been sent successfully!"
+  error: "Sending error: %error%"
+
+register:
+  fields_required: "All fields are required."
+  invalid_email: "Invalid email format."
+  password_too_short: "Password must be at least 6 characters long."
+  email_exists: "Email already registered."
+  username_exists: "This username is already taken. Please choose another one."
+  success: "Registration successful! Please check your email to confirm your account."
+  confirmation_error: "An error occurred while sending the confirmation email."
+  invalid_token: "Invalid or expired token."
+  token_expired: "Your confirmation link has expired. Please request a new one."
+  email_verified: "Your email has been verified! You can now log in."
+  already_confirmed_or_not_found: "This email is either already confirmed or does not exist."
+  confirmation_resent: "A new confirmation email has been sent. Please check your inbox."
+
+security:
+  email_not_verified: "Your email is not verified. Please check your inbox or resend the confirmation email."
+  invalid_email: "Invalid email address."
+  email_not_found: "This email does not exist."
+  reset_email_sent: "A new confirmation email has been sent. Please check your inbox."
+  invalid_token: "Invalid or expired token."
+  reset_confirmation_sent: "A confirmation email has been sent. Please check your inbox to confirm your new password."
+  temp_password_missing: "Temporary password not found. Please retry the password reset process."
+  password_changed: "Your password has been successfully changed. Please log in with your new password."
+
+subcategory:
+  name_bg:
+    invalid: "The subcategory name in Bulgarian must contain only Cyrillic characters."
+  name_en:
+    invalid: "The subcategory name in English must contain only Latin characters."
+  category:
+    invalid: "Invalid category selected."
+  added: "Subcategory added successfully."
+  updated: "Subcategory updated successfully."
+  deleted: "Subcategory deleted successfully."
+  already_exists: "A subcategory with this name already exists for the selected category."
+
+user_profile:
+  email: "Email Address"
+  username: "Username"
+  current_password: "Current Password"
+  new_password: "New Password"
+  repeat_new_password: "Repeat New Password"
+  username_not_blank: "Username cannot be empty."
+  current_password_required: "Current password is required."
+  incorrect_password: "Incorrect password."
+  new_password_not_blank: "New password cannot be empty."
+  passwords_must_match: "The two passwords must match."
+
+access_denied:
+  message: "You do not have access to this page."
+
+auth:
+  user_not_found: "User not found."
+  email_not_verified: "You need to confirm your email before logging in."

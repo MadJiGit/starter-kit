@@ -1,0 +1,4 @@
+{% extends app.user and (is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN'))
+    ? '@EasyAdmin/layout.html.twig'
+    : 'base.html.twig'
+%}

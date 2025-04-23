@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>{{ 'login.resend_email'|trans }}</h2>
+    <form method="POST">
+        <label for="email">{{ 'registration.email'|trans }}</label>
+        <input type="email" name="email" required>
+        <button type="submit">{{ 'registration.request_new_confirmation'|trans }}</button>
+    </form>
+{% endblock %}

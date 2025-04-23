@@ -1,0 +1,13 @@
+{% extends '../../base.html.twig' %}
+
+{% block title %}{{ 'admin.user.edit_title'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'admin.user.edit_title'|trans }}</h1>
+
+    {{ include('admin/_form.html.twig', {'button_label': 'admin.user.update_button'|trans }) }}
+
+    <a href="{{ path('app_user_index', {'_locale': app.request.locale}) }}">{{ 'admin.user.back_to_list'|trans }}</a>
+
+    {{ include('admin/_delete_form.html.twig') }}
+{% endblock %}

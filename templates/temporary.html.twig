@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'temporary.header'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="mb-4">{{ 'temporary.text'|trans }}</h1>
+    </div>
+
+    <a href="{{ path('user_dashboard', {'_locale': app.request.locale}) }}">{{ 'temporary.back'|trans }}</a>
+{% endblock %}

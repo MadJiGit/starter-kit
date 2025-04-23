@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>{{ 'registration.confirmation_failed'|trans }}</h2>
+    <p>{{ message }}</p>
+    <a href="{{ path('app_resend_confirmation', {'_locale': app.request.locale}) }}">
+        {{ 'registration.request_new_confirmation'|trans }}
+    </a>
+{% endblock %}

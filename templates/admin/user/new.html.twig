@@ -1,0 +1,11 @@
+{% extends '../../base.html.twig' %}
+
+{% block title %}{{ 'admin.new_user.title'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'admin.new_user.header'|trans }}</h1>
+
+    {{ include('admin/_form.html.twig') }}
+
+    <a href="{{ path('app_user_index', {'_locale': app.request.locale}) }}">{{ 'admin.show.back'|trans }}</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>{{ 'login.forgotten_pass'|trans }}</h2>
+    {{ form_start(form) }}
+    {{ form_row(form.email, {'label': 'registration.email'|trans}) }}
+    <button type="submit" class="btn btn-primary">
+        {{ 'registration.request_new_password'|trans }}
+    </button>
+    {{ form_end(form) }}
+{% endblock %}
