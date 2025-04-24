@@ -36,10 +36,10 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $email = $data['email'] ?? null;
+            $email = $data['email'] ?? 'invalid_email@mail.com';
             $subject_pref = $this->translator->trans('emails.contact.subject_pref');
-            $subject = $subject_pref.' '.$data['name'] ?? null;
-            $context = $data['message'] ?? null;
+            $subject = $subject_pref.' '.($data['name'] ?? 'Unknown');
+            $context = $data['message'] ?? 'No message provided';
 
             $success = $this->emailService->sendEmail(
                 $email,

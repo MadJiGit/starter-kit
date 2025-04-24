@@ -44,6 +44,8 @@ class SecurityController extends AbstractController
         if (!empty($lastUsername)) {
             $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $lastUsername]);
 
+            $existingFlashMessages = method_exists($session, 'getFlashBag') ? $session->getFlashBag()->peekAll() : [];
+
             if ($user && !$user->isActive() && !isset($existingFlashMessages['error'])) {
                 $resendEmail = true;
                 $this->addFlash('warning', $this->translator->trans('security.email_not_verified', [], 'flash_messages_translate'));
@@ -72,7 +74,7 @@ class SecurityController extends AbstractController
             $email = $data['email'] ?? null;
 
             $session = $request->getSession();
-            $existingFlashMessages = $session->getFlashBag()->peekAll();
+            $existingFlashMessages = method_exists($session, 'getFlashBag') ? $session->getFlashBag()->peekAll() : [];
             if (!$email) {
                 if (!isset($existingFlashMessages['error'])) {
                     $this->addFlash('error', $this->translator->trans('security.invalid_email', [], 'flash_messages_translate'));
@@ -89,7 +91,7 @@ class SecurityController extends AbstractController
                 }
 
                 return $this->redirectToRoute('app_register');
-            } elseif ($user && !$user->isActive()) {
+            } elseif (!$user->isActive()) {
                 if (!isset($existingFlashMessages['error'])) {
                     $this->addFlash('error', $this->translator->trans('security.email_not_verified', [], 'flash_messages_translate'));
                 }

@@ -10,10 +10,14 @@ use Symfony\Component\Mime\Email;
 
 class EmailService
 {
-    private MailerInterface $mailer;
+    /** @var array<string, string> */
     private array $emails;
+    private MailerInterface $mailer;
     private LoggerInterface $logger;
 
+    /**
+     * @param array<string, string> $emails
+     */
     public function __construct(MailerInterface $mailer, LoggerInterface $logger, array $emails)
     {
         $this->mailer = $mailer;
@@ -46,6 +50,9 @@ class EmailService
         }
     }
 
+    /**
+     * @param array<string, mixed> $context
+     */
     public function sendTemplatedEmail(string $to, string $subject, string $htmlTemplate, array $context = [], string $fromKey = 'no_reply'): bool
     {
         $emails = $this->emails;
@@ -70,5 +77,10 @@ class EmailService
 
             return false;
         }
+    }
+
+    public function setMailer(MailerInterface $mailer): void
+    {
+        $this->mailer = $mailer;
     }
 }

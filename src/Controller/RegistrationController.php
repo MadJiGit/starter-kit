@@ -165,7 +165,7 @@ class RegistrationController extends AbstractController
     {
         $email = $request->query->get('email'); // Get email from URL parameter
         $session = $request->getSession();
-        $existingFlashMessages = $session->getFlashBag()->peekAll();
+        $existingFlashMessages = method_exists($session, 'getFlashBag') ? $session->getFlashBag()->peekAll() : [];
 
         if (!$email) {
             if (!isset($existingFlashMessages['error'])) {
@@ -176,7 +176,7 @@ class RegistrationController extends AbstractController
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
-        $this->logger->debug($user->isActive());
+        $this->logger->debug('User active status: '.($user && $user->isActive() ? 'true' : 'false'));
 
         if (!$user || $user->isActive()) {
             if (!isset($existingFlashMessages['error'])) {

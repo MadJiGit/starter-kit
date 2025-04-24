@@ -12,19 +12,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserCrudController extends AbstractCrudController
 {
     private Security $security;
-    private TranslatorInterface $translator;
 
-    public function __construct(Security $security, TranslatorInterface $translator)
+    public function __construct(Security $security)
     {
         $this->security = $security;
-        $this->translator = $translator;
     }
 
     public static function getEntityFqcn(): string
@@ -56,6 +55,12 @@ class UserCrudController extends AbstractCrudController
             ->disable(Action::DELETE, Action::SAVE_AND_CONTINUE, Action::NEW);
     }
 
+    /**
+     * @param object $entityInstance
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         parent::updateEntity($entityManager, $entityInstance);
@@ -69,7 +74,7 @@ class UserCrudController extends AbstractCrudController
                 'main',
                 $entityInstance->getRoles()
             );
-            // Обновяваме токен сториджа и сесията
+
             $this->container->get('security.token_storage')->setToken($token);
             $session = $this->container->get('request_stack')
                 ->getCurrentRequest()
@@ -119,11 +124,14 @@ class UserCrudController extends AbstractCrudController
                 ChoiceField::new('roles')
                     ->allowMultipleChoices()
                     ->setChoices($this->getAvailableRoles())
-                    ->setPermission($isSuperAdmin ? 'ROLE_SUPER_ADMIN' : 'ROLE_ADMIN'), // ADMIN can promote only to EDITOR
+                    ->setPermission('ROLE_SUPER_ADMIN'), // ADMIN can promote only to EDITOR
             ];
         }
     }
 
+    /**
+     * @return array<string>
+     */
     private function getAvailableRoles(): array
     {
         // Only Super Admin can assign the "ROLE_SUPER_ADMIN"

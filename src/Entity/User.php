@@ -18,6 +18,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    /** @phpstan-ignore-next-line */
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 50, unique: true)]
@@ -204,9 +205,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\PrePersist]
     public function setRegisteredAt(): self
     {
-        if (!$this->registeredAt) {
-            $this->registeredAt = new \DateTime('now');
-        }
+        $this->registeredAt = new \DateTime('now');
 
         return $this;
     }
@@ -214,7 +213,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\PreUpdate]
     public function setUpdatedAt(): self
     {
-        $this->updatedAt = new \DateTime('now'); // Automatically update timestamp when user is modified
+        $this->updatedAt = new \DateTime('now');
 
         return $this;
     }

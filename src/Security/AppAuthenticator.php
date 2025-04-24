@@ -106,7 +106,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         $message = $exception->getMessage();
         $this->logger->error('Authentication failed: '.$message);
 
-        if (!$session->getFlashBag()->has('error')) {
+        if (method_exists($session, 'getFlashBag') && !$session->getFlashBag()->has('error')) {
             $translatedMessage = $this->translator->trans($message, [], 'flash_messages_translate');
             $session->getFlashBag()->add('error', $translatedMessage);
         }

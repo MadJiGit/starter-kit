@@ -90,7 +90,7 @@ class UserController extends AbstractController
 
             $token = bin2hex(random_bytes(32));
             $user->setConfirmationToken($token);
-            $user->setTokenExpiresAt((new \DateTime())->modify('+30 minutes')); // Валиден 30 мин.
+            $user->setTokenExpiresAt((new \DateTime())->modify('+30 minutes'));
 
             $user->setIsActive(false);
             $this->entityManager->flush();
