@@ -7,9 +7,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * @phpstan-ignore-next-line
- */
 class ForgottenPasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
