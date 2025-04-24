@@ -29,3 +29,8 @@
 /.idea/
 /.symfony
 /starter-kit
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
