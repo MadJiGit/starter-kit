@@ -3,9 +3,9 @@
 namespace App\Service;
 
 use Psr\Log\LoggerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Email;
 
 class EmailService
@@ -14,7 +14,8 @@ class EmailService
     private array $emails;
     private LoggerInterface $logger;
 
-    public function __construct(MailerInterface $mailer, LoggerInterface $logger, array $emails) {
+    public function __construct(MailerInterface $mailer, LoggerInterface $logger, array $emails)
+    {
         $this->mailer = $mailer;
         $this->logger = $logger;
         $this->emails = $emails;
@@ -36,9 +37,11 @@ class EmailService
                 ->text($textBody);
 
             $this->mailer->send($email);
+
             return true;
         } catch (TransportExceptionInterface $e) {
-            $this->logger->error('Plain email sending failed: ' . $e->getMessage());
+            $this->logger->error('Plain email sending failed: '.$e->getMessage());
+
             return false;
         }
     }
@@ -60,9 +63,11 @@ class EmailService
                 ->context($context);
 
             $this->mailer->send($email);
+
             return true;
         } catch (TransportExceptionInterface $e) {
-            $this->logger->error('Templated email sending failed: ' . $e->getMessage());
+            $this->logger->error('Templated email sending failed: '.$e->getMessage());
+
             return false;
         }
     }

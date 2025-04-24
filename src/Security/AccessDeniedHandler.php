@@ -23,8 +23,9 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
     public function handle(Request $request, AccessDeniedException $exception): RedirectResponse
     {
         // Връща потребителя на предишната страница, ако има такава
-//        return new RedirectResponse($request->headers->get('referer', '/'));
+        //        return new RedirectResponse($request->headers->get('referer', '/'));
         $referer = $request->headers->get('referer', $this->router->generate('user_dashboard'));
+
         return new RedirectResponse($referer);
     }
 
@@ -38,7 +39,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         $exception = $event->getThrowable();
         $referer = '/postures/all';
 
-         dd($exception->getMessage());
+        dd($exception->getMessage());
 
         // Проверяваме дали е AccessDeniedException (403 Forbidden)
         if ($exception instanceof AccessDeniedHttpException || $exception instanceof NotFoundHttpException) {
@@ -53,7 +54,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         }
 
         dd($exception->getMessage());
-//        dump($exception->getMessage());
+        //        dump($exception->getMessage());
 
         // **Персонализиране на съобщенията според типа на грешката**
         $errorMessage = match (true) {
@@ -64,7 +65,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         };
 
         // Ако е друга грешка (като password cannot be null) -> пращаме към страницата за грешки
-//        $referer = $request->headers->get('referer', '/');
+        //        $referer = $request->headers->get('referer', '/');
         $errorUrl = $this->router->generate('error_page', [
             'message' => urlencode($errorMessage), // Кодиране на съобщението за URL
             'referer' => urlencode($referer),

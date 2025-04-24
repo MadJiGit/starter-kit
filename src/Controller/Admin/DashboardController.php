@@ -51,8 +51,8 @@ class DashboardController extends AbstractDashboardController
 
         if ($this->isGranted('ROLE_ADMIN') || $this->isGranted('ROLE_SUPER_ADMIN')) {
             yield MenuItem::linkToCrud('User Management', 'fa fa-users', User::class);
-//            yield MenuItem::linkToRoute('Go to Editor Menu', 'fas fa-edit', '');
-//            yield MenuItem::linkToRoute('Go to User Menu', 'fas fa-edit', '');
+            //            yield MenuItem::linkToRoute('Go to Editor Menu', 'fas fa-edit', '');
+            //            yield MenuItem::linkToRoute('Go to User Menu', 'fas fa-edit', '');
         }
     }
 }

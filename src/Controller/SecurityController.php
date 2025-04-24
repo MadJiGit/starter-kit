@@ -77,6 +77,7 @@ class SecurityController extends AbstractController
                 if (!isset($existingFlashMessages['error'])) {
                     $this->addFlash('error', $this->translator->trans('security.invalid_email', [], 'flash_messages_translate'));
                 }
+
                 return $this->redirectToRoute('app_login');
             }
 
@@ -86,11 +87,13 @@ class SecurityController extends AbstractController
                 if (!isset($existingFlashMessages['error'])) {
                     $this->addFlash('error', $this->translator->trans('security.email_not_found', [], 'flash_messages_translate'));
                 }
+
                 return $this->redirectToRoute('app_register');
-            } else if ($user && !$user->isActive()) {
+            } elseif ($user && !$user->isActive()) {
                 if (!isset($existingFlashMessages['error'])) {
                     $this->addFlash('error', $this->translator->trans('security.email_not_verified', [], 'flash_messages_translate'));
                 }
+
                 return $this->redirectToRoute('app_login');
             }
 
@@ -141,6 +144,7 @@ class SecurityController extends AbstractController
 
         if (!$user || $user->getTokenExpiresAt() < new \DateTime()) {
             $this->addFlash('error', $this->translator->trans('security.invalid_token', [], 'flash_messages_translate'));
+
             return $this->redirectToRoute('app_login');
         }
 
@@ -198,11 +202,13 @@ class SecurityController extends AbstractController
 
         if (!$user || $user->getTokenExpiresAt() < new \DateTime()) {
             $this->addFlash('error', $this->translator->trans('security.invalid_token', [], 'flash_messages_translate'));
+
             return $this->redirectToRoute('app_login');
         }
 
         if (!$user->getTempPassword()) {
             $this->addFlash('error', $this->translator->trans('security.temp_password_missing', [], 'flash_messages_translate'));
+
             return $this->redirectToRoute('app_login');
         }
 
@@ -227,7 +233,7 @@ class SecurityController extends AbstractController
             $subject,
             'emails/password_changed.html.twig',
             ['user' => $user,
-            'confirmationUrl' => $confirmationLink],
+                'confirmationUrl' => $confirmationLink],
             'no_reply'
         );
 
