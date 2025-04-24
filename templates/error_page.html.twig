@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'error_page.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h2 class="text-danger">{{ 'error_page.title'|trans }}</h2>
+        <p>{{ message }}</p>
+        <a href="{{ app.request.query.get('referer', '/') }}" class="btn btn-primary">{{ 'error_page.go_back'|trans }}</a>
+    </div>
+{% endblock %}

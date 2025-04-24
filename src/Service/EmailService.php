@@ -78,4 +78,9 @@ class EmailService
             return false;
         }
     }
+
+    public function setMailer(MailerInterface $mailer): void
+    {
+        $this->mailer = $mailer;
+    }
 }
