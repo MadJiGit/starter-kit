@@ -4,7 +4,8 @@ $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__.'/src')
     ->in(__DIR__.'/tests')
     ->exclude('var')
-;
+    ->exclude('vendor');
+
 
 return (new PhpCsFixer\Config())
     ->setRules([
@@ -20,4 +21,3 @@ return (new PhpCsFixer\Config())
     ->setFinder($finder)
     ->setRiskyAllowed(true)
     ->setUsingCache(true);
-;

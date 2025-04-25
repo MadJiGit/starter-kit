@@ -16,6 +16,9 @@ class UserFixtures extends Fixture
         $this->passwordHasher = $passwordHasher;
     }
 
+    /**
+     * @param string[] $roles
+     */
     private function createUser(string $username, string $email, array $roles, string $plainPassword): User
     {
         $user = new User();
@@ -31,8 +34,8 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-//        $user = $this->createUser('superadmin', 'superadmin@gmail.com', ['ROLE_SUPER_ADMIN'], '1234567890');
-//        $manager->persist($user);
+        //        $user = $this->createUser('superadmin', 'superadmin@gmail.com', ['ROLE_SUPER_ADMIN'], '1234567890');
+        //        $manager->persist($user);
 
         $regularUser = $this->createUser('testuser', 'testuser@example.com', ['ROLE_USER'], 'password123');
         $manager->persist($regularUser);
