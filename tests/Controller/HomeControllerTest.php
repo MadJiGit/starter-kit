@@ -2,37 +2,24 @@
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use App\Entity\User;
+use App\Tests\AbstractDatabaseTestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
-class HomeControllerTest extends WebTestCase
+class HomeControllerTest extends AbstractDatabaseTestCase
 {
-    private function getUser(): User
-    {
-        $user = self::getContainer()
-            ->get('doctrine')
-            ->getRepository(User::class)
-            ->findOneBy(['email' => 'testuser@example.com']);
-
-        if (!$user) {
-            throw new \RuntimeException('Test user not found in database.');
-        }
-
-        return $user;
-    }
+    protected KernelBrowser $client;
 
     private function loginUser(KernelBrowser $client): void
     {
-        $user = $this->getUser();
+        $user = $this->getOrCreateUser('test@example.com', 'testuser');
         $client->loginUser($user);
     }
 
     public function testPrivacyPolicyPageLoadsSuccessfully(): void
     {
-        $client = static::createClient();
-        $this->loginUser($client);
-        $client->request('GET', '/bg/home/privacy');
+
+        $this->loginUser($this->client);
+        $this->client->request('GET', '/bg/home/privacy');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Политика за поверителност');
@@ -40,9 +27,9 @@ class HomeControllerTest extends WebTestCase
 
     public function testContactPageLoadsForm(): void
     {
-        $client = static::createClient();
-        $this->loginUser($client);
-        $client->request('GET', '/bg/home/contact');
+
+        $this->loginUser($this->client);
+        $this->client->request('GET', '/bg/home/contact');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('form'); // форма трябва да присъства
@@ -51,9 +38,9 @@ class HomeControllerTest extends WebTestCase
 
     public function testContactFormSubmission(): void
     {
-        $client = static::createClient();
-        $this->loginUser($client);
-        $crawler = $client->request('GET', '/bg/home/contact');
+
+        $this->loginUser($this->client);
+        $crawler = $this->client->request('GET', '/bg/home/contact');
 
         $form = $crawler->selectButton('Изпрати')->form([
             'contact_form[name]' => 'Тестов Потребител',
@@ -61,9 +48,9 @@ class HomeControllerTest extends WebTestCase
             'contact_form[message]' => 'Това е тестово съобщение.',
         ]);
 
-        $client->submit($form);
+        $this->client->submit($form);
         $this->assertResponseRedirects(); // очакваме пренасочване след успешна заявка
-        $client->followRedirect();
+        $this->client->followRedirect();
 
         $this->assertSelectorExists('#flash-data');
     }

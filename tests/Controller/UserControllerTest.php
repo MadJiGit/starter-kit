@@ -2,51 +2,30 @@
 
 namespace App\Tests\Controller;
 
-use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Tests\AbstractDatabaseTestCase;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class UserControllerTest extends WebTestCase
+class UserControllerTest extends AbstractDatabaseTestCase
 {
+    protected KernelBrowser $client;
+
     public function testUserDashboard()
     {
-        // Създаване на тестов клиент
-        $client = static::createClient();
+        // Use the shared getOrCreateUser method
+        $this->client->loginUser($this->getOrCreateUser('testuser@example.com'));
 
-        // Логваме потребителя
-        $client->loginUser($this->getUser());
+        $this->client->request('GET', '/en/user/me');
 
-        // Изпращаме GET заявка към /user/me
-        $client->request('GET', '/en/user/me');
-
-        // Проверяваме дали отговорът е успешен
         $this->assertResponseIsSuccessful();
-
-        // Проверяваме дали съдържа заглавие "User Dashboard"
-        //        $this->assertSelectorTextContains('h1', 'User Dashboard');
-    }
-
-    // Тук създаваме метода getUser, който ще връща потребителя за тестовете
-    private function getUser(): User
-    {
-        $user = self::getContainer()
-            ->get('doctrine')
-            ->getRepository(User::class)
-            ->findOneBy(['email' => 'testuser@example.com']);
-
-        if (!$user) {
-            throw new \RuntimeException('Test user not found in database.');
-        }
-
-        return $user;
     }
 
     public function testUserProfilePageLoadsSuccessfully(): void
     {
-        $client = static::createClient();
-        $client->loginUser($this->getUser());
 
-        $client->request('GET', '/bg/user/profile');
+        $this->client->loginUser($this->getOrCreateUser('testuser@example.com'));
+
+        $this->client->request('GET', '/bg/user/profile');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('h1'); // Заменяш с нещо специфично за твоя шаблон
@@ -54,10 +33,11 @@ class UserControllerTest extends WebTestCase
 
     public function testEditProfilePostRequest(): void
     {
-        $client = static::createClient();
-        $client->loginUser($this->getUser());
+        $user = $this->getOrCreateUser('testuser@example.com');
+        $this->client->loginUser($user);
+
         $urlGenerator = static::getContainer()->get(UrlGeneratorInterface::class);
-        $crawler = $client->request('GET', $urlGenerator->generate('user_edit_profile', ['_locale' => 'bg']));
+        $crawler = $this->client->request('GET', $urlGenerator->generate('user_edit_profile', ['_locale' => 'bg']));
 
         $form = $crawler->selectButton('Изпрати')->form([
             'user_profile[username]' => 'newusername',
@@ -66,9 +46,11 @@ class UserControllerTest extends WebTestCase
             'user_profile[newPassword][second]' => 'password123',
         ]);
 
-        $client->submit($form);
+        $this->client->submit($form);
 
         $this->assertResponseRedirects('/bg/login');
+
+        $crawler = $this->client->followRedirect();
 
         // Вземаме съдържанието на data-messages атрибута
         $flashDiv = $crawler->filter('#flash-data')->attr('data-messages');
@@ -88,6 +70,6 @@ class UserControllerTest extends WebTestCase
             }
         }
 
-        $this->assertStringContainsString('Профилът ви беше обновен.', $client->getResponse()->getContent());
+        $this->assertTrue($successMessageFound, 'Expected success flash message was not found.');
     }
 }

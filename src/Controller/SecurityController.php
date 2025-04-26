@@ -30,7 +30,6 @@ class SecurityController extends AbstractController
     #[\Symfony\Component\Routing\Annotation\Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
-
         if ($this->getUser()) {
             return $this->redirectToRoute('admin_dashboard');
         }
@@ -254,6 +253,7 @@ class SecurityController extends AbstractController
     #[Route('/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): void
     {
-        throw new \Exception('This should never be reached!');
+//        return $this->redirectToRoute('home');
+//        throw new \Exception('This should never be reached!');
     }
 }
